@@ -36,7 +36,7 @@ class Excel_utils():
     '''获取合并单元格数量'''
 
     def get_merged_index(self):
-        return self.sheet.merged_cells
+        return self.sheet.merged_cellsq
 
 
 
