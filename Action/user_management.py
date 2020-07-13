@@ -1,8 +1,8 @@
 import requests
 import random
 import json
-from com.get_token import GetToken
-from com.get_config import getconfig
+from common.get_token import GetToken
+from common.get_config import getconfig
 
 
 number=random.randint(1,1000)

@@ -1,6 +1,6 @@
 import requests
 import re
-from com.get_config import getconfig
+from common.get_config import getconfig
 class GetToken:
     def __init__(self,appid,secret):
         data={'grant_type':'client_credential','appid':appid,'secret':secret}

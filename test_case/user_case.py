@@ -1,6 +1,6 @@
 import unittest
 import re
-from com.log_print import Log
+from common.log_print import Log
 from Action.user_management import UserManagement
 
 
