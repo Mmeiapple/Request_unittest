@@ -15,6 +15,12 @@ class RequestUtils():
         url=self.hots+get_infos["请求地址"]
         response=self.seesion.get(url=url,
                                   params=ast.literal_eval(get_infos["请求参数"]))
+
+        param_variable_list=re.findall('\\${\w+}',get_infos["请求参数(get)"])
+        if param_variable_list:
+            for  param_values in param_variable_list:
+                get_infos["请求参数(get)"]=get_infos["请求参数(get)"].replace(param_values,'"%s"'%self.temp_variables.get(param_values[2:-1]))
+        print( get_infos["请求参数(get)"])
         response.encoding=response.apparent_encoding
 
         if get_infos["取值方式"]=="json取值":
