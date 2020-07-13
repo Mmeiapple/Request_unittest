@@ -14,7 +14,7 @@ class RequestUtils():
     def __get(self,get_infos):
         url=self.hots+get_infos["请求地址"]
         response=self.seesion.get(url=url,
-                                  params=ast.literal_eval(get_infos["请求参数"]))
+                                  params=ast.literal_eval(get_infos["请求参数(get)"]))
 
         param_variable_list=re.findall('\\${\w+}',get_infos["请求参数(get)"])
         if param_variable_list:
@@ -87,6 +87,42 @@ class RequestUtils():
         return temp_result
 
 if __name__=="__main__":
+    case_info2 = [
+        {'请求方式': 'get',
+         '请求地址': '/cgi-bin/token',
+         '请求参数(get)': '{"grant_type":"client_credential","appid":"wx60536c088aee3040","secret":"f214d833f873d8cc1b38255eca0938d9"}',
+         '提交数据（post）': '', '取值方式': 'json取值', '传值变量': 'token', '取值代码': '$.access_token'},
+        {'请求方式': 'post', '请求地址': '/cgi-bin/tags/delete', '请求参数(get)': '{"access_token":${token}}',
+         '提交数据（post）': '{"tag":{"id":459}}', '取值方式': '无', '传值变量': '', '取值代码': ''}
+    ]
+    case_info = [
+                {'测试用例编号': 'case02',
+                 '测试用例名称': '测试能否正确新增用户标签',
+                 '用例执行': '否', '测试用例步骤': 'step_01',
+                 '接口名称': '获取access_token接口',
+                 '请求方式': 'get',
+                 '请求地址': '/cgi-bin/token',
+                 '请求参数(get)': '{"grant_type":"client_credential","appid":"wx60536c088aee3040","secret":"f214d833f873d8cc1b38255eca0938d9"}',
+                 '提交数据（post）': '',
+                 '取值方式': 'json取值',
+                 '传值变量': 'token',
+                 '取值代码': '$.access_token',
+                 '期望结果类型': '正则匹配',
+                 '期望结果': '{"access_token":"(.+?)","expires_in":(.+?)}'},
+                {'测试用例编号': 'case02', '测试用例名称': '测试能否正确新增用户标签',
+                 '用例执行': '否',
+                 '测试用例步骤': 'step_02',
+                 '接口名称': '创建标签接口',
+                 '请求方式': 'post',
+                 '请求地址': '/cgi-bin/tags/create',
+                 '请求参数(get)': '{"access_token":${token}}',
+                 '提交数据（post）': '{"tag" : {"name" : "nanyue_8888"}}',
+                 '取值方式': '无',
+                 '传值变量': '',
+                 '取值代码': '',
+                 '期望结果类型': '正则匹配',
+                 '期望结果': '{"tag":{"id":(.+?),"name":"8888"}}'}]
+
     get_infos1={'请求方式':'get',
                '请求地址':'cgi-bin/token?',
                '请求参数':"{'grant_type':'client_credential','appid':'wx60536c088aee3040','secret':'f214d833f873d8cc1b38255eca0938d9'}",
@@ -101,7 +137,7 @@ if __name__=="__main__":
                '取值代码': '"access_token":"(.+?)",',
                '传值变量':  None
                }
-    print(RequestUtils().request(get_infos2))
+    print(RequestUtils().request_by_step(case_info))
 
 
 
