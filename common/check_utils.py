@@ -32,14 +32,14 @@ class CheckUtils():
         }
 
     '''
-    检查json、key值
+    检查json键是否存在
     
     '''
 
     def check_key(self, check_data=None):
         check_data_list = check_data.split(',')
 
-        expdata = ast.literal_eval(self.ck_response)
+        expdata = self.ck_response.json()
 
         # 存放每次比较的结果
         res_list = []
@@ -61,7 +61,7 @@ class CheckUtils():
     '''检查键值对'''
 
     def check_key_value(self,check_data=None):
-        expdata = ast.literal_eval(self.ck_response)
+        expdata = self.ck_response.json()
 
         # 存放每次比较的结果
         res_list = []

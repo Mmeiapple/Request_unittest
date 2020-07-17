@@ -5,6 +5,7 @@ import jsonpath
 import re
 import json
 import random
+from common.check_utils import CheckUtils
 from common.get_config import getconfig
 
 
@@ -38,13 +39,14 @@ class RequestUtils():
         elif get_infos["取值方式"] == "正则取值":
             value = re.findall(get_infos["取值方式"], response.text)[0]
             self.temp_variables[get_infos["传值变量"]] = value
-        result = {
-            'code': 0,
-            'response_reason': response.reason,
-            'response_code': response.status_code,
-            'response_headers': response.headers,
-            'response_body': response.text
-        }
+        # result = {
+        #     'code': 0,
+        #     'response_reason': response.reason,
+        #     'response_code': response.status_code,
+        #     'response_headers': response.headers,
+        #     'response_body': response.text
+        # }
+        result = CheckUtils(response).run_check(get_infos['期望结果类型'],get_infos['期望结果'])
         return result
 
     '''调用post请求'''
@@ -65,13 +67,14 @@ class RequestUtils():
         elif post_info["取值方式"] == "正则取值":
             value = re.findall(post_info["取值代码"], response.text)[0]
             self.temp_variables[post_info["传值变量"]] = value
-        result = {
-            'code': 0,  # 请求是否成功的标志位
-            'response_reason': response.reason,
-            'response_code': response.status_code,
-            'response_headers': response.headers,
-            'response_body': response.text
-        }
+        # result = {
+        #     'code': 0,  # 请求是否成功的标志位
+        #     'response_reason': response.reason,
+        #     'response_code': response.status_code,
+        #     'response_headers': response.headers,
+        #     'response_body': response.text
+        # }
+        result = CheckUtils(response).run_check(post_info['期望结果类型'],post_info['期望结果'])
         return result
 
     '''请求判断'''
@@ -170,7 +173,7 @@ if __name__ == "__main__":
          '提交数据（post）': '{"tag" : {"name" : "nany1_8888"}}', '取值方式': '无', '传值变量': '', '取值代码': '', '期望结果类型': '正则匹配',
          '期望结果': '{"tag":{"id":(.+?),"name":"8888"}}'}]
 
-    a=RequestUtils().request_by_step( case_info1 )
+    a=RequestUtils().request_by_step( get_infos1 )
     # a={'code': 0, 'response_reason': 'OK', 'response_code': 200, 'response_headers': {'Connection': 'keep-alive', 'Content-Type': 'application/json; encoding=utf-8', 'Date': 'Tue, 14 Jul 2020 09:49:39 GMT', 'Content-Length': '194'}, 'response_body': '{"access_token":"35_kbbJmtj5twTVL5r3kh8YlkOhq85s_3NluPAsTUwmJqftq8FSHXhqoBLN0Ckm_NHuMd8LD-zj2yOIccuX_NH53kgwqYWvZg0fr8G-Yx-dXjk3bvjzH6eYHSJEETwp49bPCEUuc8fIr0MXPTDPSUAhADAYAG","expires_in":7200}'}
     print(a)
     # a = get_infos1[0]['请求参数(get)']
