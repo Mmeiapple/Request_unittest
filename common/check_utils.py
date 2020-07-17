@@ -84,7 +84,7 @@ class CheckUtils():
     '''
     def check_regexp(self,check_data=None):
 
-        if re.findall(check_data,self.ck_response):
+        if re.findall(check_data,self.ck_response.text):
             return self.pass_result
         else:
             return self.fail_result

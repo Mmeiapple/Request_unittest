@@ -107,7 +107,7 @@ class RequestUtils():
             temp_result = self.request(step_info)
             if temp_result['code'] != 0:
                 break
-            print("测试用例一 【%s】,【返回结果】：%s" % (str(step_info['测试用例名称']), temp_result['response_body']))
+            # print("测试用例一 【%s】,【返回结果】：%s" % (str(step_info['测试用例名称']), temp_result['response_body']))
         return temp_result
 
 
@@ -173,7 +173,7 @@ if __name__ == "__main__":
          '提交数据（post）': '{"tag" : {"name" : "nany1_8888"}}', '取值方式': '无', '传值变量': '', '取值代码': '', '期望结果类型': '正则匹配',
          '期望结果': '{"tag":{"id":(.+?),"name":"8888"}}'}]
 
-    a=RequestUtils().request_by_step( get_infos1 )
+    a=RequestUtils().request_by_step( case_info3 )
     # a={'code': 0, 'response_reason': 'OK', 'response_code': 200, 'response_headers': {'Connection': 'keep-alive', 'Content-Type': 'application/json; encoding=utf-8', 'Date': 'Tue, 14 Jul 2020 09:49:39 GMT', 'Content-Length': '194'}, 'response_body': '{"access_token":"35_kbbJmtj5twTVL5r3kh8YlkOhq85s_3NluPAsTUwmJqftq8FSHXhqoBLN0Ckm_NHuMd8LD-zj2yOIccuX_NH53kgwqYWvZg0fr8G-Yx-dXjk3bvjzH6eYHSJEETwp49bPCEUuc8fIr0MXPTDPSUAhADAYAG","expires_in":7200}'}
     print(a)
     # a = get_infos1[0]['请求参数(get)']
