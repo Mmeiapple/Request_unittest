@@ -5,7 +5,7 @@ from common.excel_utils import Excel_utils
 
 
 current = os.path.dirname(__file__)
-path_data_file = os.path.join(current, '../data/test_case.xlsx')
+path_data_file = os.path.join(current, '../data/test_case1.xlsx')
 
 
 class TestdataUtils():
@@ -16,11 +16,11 @@ class TestdataUtils():
     def get_testcase_data_dict(self):
         all_case = {}
         for i in self.test_data:
-            print(all_case.setdefault(i['测试用例编号'], []).append(i))
+            all_case.setdefault(i['测试用例编号'], []).append(i)
         return all_case
     def get_testcase_data_list(self):
-        data=self.get_testcase_data_dict()
         list_data=[]
+        data=self.get_testcase_data_dict()
         for key,value in data.items():
             dict_data={}
             dict_data['case_name']=key
@@ -42,4 +42,5 @@ if __name__=="__main__":
     value2=TestdataUtils('Sheet1',path_data_file).get_testcase_data_list()
 
     print(json.dumps(value2, indent=1, ensure_ascii=False))
+
 

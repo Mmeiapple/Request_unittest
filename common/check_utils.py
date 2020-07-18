@@ -119,7 +119,7 @@ class CheckUtils():
 
 if __name__=="__main__":
     str1='{"access_token":"(.+?)","expires_in":(.+?)}'
-    response1='{"access_token":"34Wsaklllsdassa","expires_in":7200}'
+    response1={'code': 2,'reason':'21', 'response_reason': 'OK', 'response_code': 200, 'response_headers': {'Connection': 'keep-alive', 'Content-Type': 'application/json; encoding=utf-8', 'Date': 'Sat, 18 Jul 2020 02:14:49 GMT', 'Content-Length': '37'}, 'response_body': '{"tag":{"id":218,"name":"hemi_8888"}}'}
     str2 = 'access_token,expires_in'
     response2='{"access_token":"34Wsaklllsdassa","expires_in":7200}'
     str3='{"expires_in":7200}'

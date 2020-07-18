@@ -7,6 +7,7 @@ import json
 import random
 from common.check_utils import CheckUtils
 from common.get_config import getconfig
+from common.testdata_utils import TestdataUtils
 
 
 class RequestUtils():
@@ -60,6 +61,7 @@ class RequestUtils():
             params=ast.literal_eval(post_info["请求参数(get)"]),
             json=ast.literal_eval(post_info["提交数据（post）"])
         )
+        print('\n',post_info["提交数据（post）"],'\n')
         response.encoding = response.apparent_encoding
         if post_info["取值方式"] == "json取值":
             value = jsonpath.jsonpath(response.json(), post_info["取值代码"])[0]
@@ -112,72 +114,14 @@ class RequestUtils():
 
 
 if __name__ == "__main__":
-    case_info3 = [{'测试用例编号': 'case02',
-                   '测试用例名称': '测试能否正确新增用户标签',
-                   '用例执行': '否', '测试用例步骤': 'step_01',
-                   '接口名称': '获取access_token接口',
-                   '请求方式': 'get',
-                   '请求地址': '/cgi-bin/token',
-                   '请求参数(get)': '{"grant_type":"client_credential","appid":"wx60536c088aee3040","secret":"f214d833f873d8cc1b38255eca0938d9"}',
-                   '提交数据（post）': '',
-                   '取值方式': 'json取值',
-                   '传值变量': 'token',
-                   '取值代码': '$.access_token',
-                   '期望结果类型': '正则匹配',
-                   '期望结果': '{"access_token":"(.+?)","expires_in":(.+?)}'},
-                  {'测试用例编号': 'case02', '测试用例名称': '测试能否正确新增用户标签',
-                   '用例执行': '否',
-                   '测试用例步骤': 'step_02',
-                   '接口名称': '创建标签接口',
-                   '请求方式': 'post',
-                   '请求地址': '/cgi-bin/tags/create',
-                   '请求参数(get)': '{"access_token":${token}}',
-                   '提交数据（post）': '{"tag" : {"name" : "nanyue_8888"}}',
-                   '取值方式': '无',
-                   '传值变量': '',
-                   '取值代码': '',
-                   '期望结果类型': '正则匹配',
-                   '期望结果': '{"tag":{"id":(.+?),"name":"8888"}}'}]
+    current = os.path.dirname(__file__)
+    path_data_file = os.path.join(current, '../data/test_case1.xlsx')
+    value2 = TestdataUtils('Sheet1', path_data_file).get_testcase_data_list()
+    case01=value2[0]['case_info']
+    case02=value2[1]['case_info']
+    case03=value2[2]['case_info']
+    case04=value2[3]['case_info']
+    # print(json.dumps(case03,indent=1,ensure_ascii=False))
 
-    get_infos1 = [
-        {'测试用例编号': 'case01',
-         '测试用例名称': '测试能否正确执行获取access_token接口',
-         '用例执行': '是',
-         '测试用例步骤': 'step_01',
-         '接口名称': '获取access_token接口',
-         '请求方式': 'get',
-         '请求地址': '/cgi-bin/token',
-         '请求参数(get)': '{"grant_type":"client_credential","appid":"wx55614004f367f8ca","secret":"65515b46dd758dfdb09420bb7db2c67f"}',
-         '提交数据（post）': '',
-         '取值方式': '无',
-         '传值变量': '',
-         '取值代码': '',
-         '期望结果类型': 'json键是否存在',
-         '期望结果': 'access_token,expires_in'}]
-    get_infos2 = [{'请求方式': 'get',
-                   '请求地址': 'cgi-bin/token?',
-                   '请求参数(get)': "{'grant_type':'client_credential','appid':'wx60536c088aee3040','secret':'f214d833f873d8cc1b38255eca0938d9'}",
-                   '提交数据（post）': '',
-                   "取值方式": "正则取值",
-                   '取值代码': '"access_token":"(.+?)",',
-                   '传值变量': None,
-                   }]
-    case_info1 = [
-        {'测试用例编号': 'case02', '测试用例名称': '测试能否正确新增用户标签', '用例执行': '否', '测试用例步骤': 'step_01', '接口名称': '获取access_token接口',
-         '请求方式': 'get', '请求地址': '/cgi-bin/token',
-         '请求参数(get)': '{"grant_type":"client_credential","appid":"wx60536c088aee3040","secret":"f214d833f873d8cc1b38255eca0938d9"}',
-         '提交数据（post）': '', '取值方式': 'json取值', '传值变量': 'token', '取值代码': '$.access_token', '期望结果类型': '正则匹配',
-         '期望结果': '{"access_token":"(.+?)","expires_in":(.+?)}'},
-        {'测试用例编号': 'case02', '测试用例名称': '测试能否正确新增用户标签', '用例执行': '否', '测试用例步骤': 'step_02', '接口名称': '创建标签接口',
-         '请求方式': 'post', '请求地址': '/cgi-bin/tags/create', '请求参数(get)': '{"access_token":${token}}',
-         '提交数据（post）': '{"tag" : {"name" : "nany1_8888"}}', '取值方式': '无', '传值变量': '', '取值代码': '', '期望结果类型': '正则匹配',
-         '期望结果': '{"tag":{"id":(.+?),"name":"8888"}}'}]
-
-    a=RequestUtils().request_by_step( case_info3 )
-    # a={'code': 0, 'response_reason': 'OK', 'response_code': 200, 'response_headers': {'Connection': 'keep-alive', 'Content-Type': 'application/json; encoding=utf-8', 'Date': 'Tue, 14 Jul 2020 09:49:39 GMT', 'Content-Length': '194'}, 'response_body': '{"access_token":"35_kbbJmtj5twTVL5r3kh8YlkOhq85s_3NluPAsTUwmJqftq8FSHXhqoBLN0Ckm_NHuMd8LD-zj2yOIccuX_NH53kgwqYWvZg0fr8G-Yx-dXjk3bvjzH6eYHSJEETwp49bPCEUuc8fIr0MXPTDPSUAhADAYAG","expires_in":7200}'}
+    a=RequestUtils().request_by_step( case04 )
     print(a)
-    # a = get_infos1[0]['请求参数(get)']
-    # params = ast.literal_eval(get_infos1[0]["请求参数(get)"])
-    # print("无转化:%s" % a)
-    # print("转化后:%s" % params)
-    # print(type(a))

@@ -73,7 +73,7 @@ class Excel_utils():
         return alldict
 if __name__=="__main__":
     current=os.path.dirname(__file__)
-    path_data_file=os.path.join(current,'../data/test_case.xlsx')
+    path_data_file=os.path.join(current,'../data/test_case1.xlsx')
     value=Excel_utils(path_data_file,'Sheet1').get_sheet_data_by_dict()
     # print(json.dumps(value,indent=1,ensure_ascii=False))
     all_case={}
