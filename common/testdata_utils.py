@@ -23,7 +23,7 @@ class TestdataUtils():
         data=self.get_testcase_data_dict()
         for key,value in data.items():
             dict_data={}
-            dict_data['case_name']=key
+            dict_data['case_id']=key
             dict_data['case_info']=value
             list_data.append(dict_data)
         return list_data

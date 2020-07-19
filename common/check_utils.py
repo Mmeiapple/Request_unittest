@@ -96,7 +96,7 @@ class CheckUtils():
     
     '''
 
-    def no_check(self):
+    def no_check(self,check_data=None):
         return self.pass_result
 
     '''
