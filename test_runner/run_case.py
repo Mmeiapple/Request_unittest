@@ -1,7 +1,6 @@
 import os
 import unittest
-# from common.HTMLTestReportCN import HTMLTestRunner
-
+from common.email_utils import EmailUtils
 from common import HTMLTestReportCN
 
 
@@ -39,4 +38,6 @@ class RunCase():
 
 
 if __name__=="__main__":
-    RunCase().run()
+    report_path=RunCase().run()
+    print(report_path.split('\\')[-1])
+    EmailUtils('接口自动化测试报告',report_path).send_mail()
