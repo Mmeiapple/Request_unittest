@@ -131,7 +131,7 @@ if __name__ == "__main__":
     case02=value2[1]['case_info']
     case03=value2[2]['case_info']
     case04=value2[3]['case_info']
-    # print(json.dumps(case03,indent=1,ensure_ascii=False))
+    print(json.dumps(case03,indent=1,ensure_ascii=False))
 
-    a=RequestUtils().request_by_step( case04 )
-    print(a)
+    # a=RequestUtils().request_by_step( case04 )
+    # print(a)

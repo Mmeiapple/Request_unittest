@@ -9,7 +9,7 @@ path_data_file = os.path.join(current, '../data/test_case1.xlsx')
 
 
 class TestdataUtils():
-    def __init__(self,sheet_name,test_data_path=path_data_file):
+    def __init__(self,sheet_name='Sheet1',test_data_path=path_data_file):
         self.test_data_path=test_data_path
         self.test_data=Excel_utils(path_data_file, sheet_name).get_sheet_data_by_dict()
 

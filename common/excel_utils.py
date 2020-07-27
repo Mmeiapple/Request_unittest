@@ -82,8 +82,9 @@ if __name__=="__main__":
         all_case.setdefault(i['测试用例编号'],[]).append(i)
 
 
-    print(all_case['case01'])
+    # print(all_case['case01'])
 
+    print(value)
 
 
 
