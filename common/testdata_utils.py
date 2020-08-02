@@ -28,6 +28,12 @@ class TestdataUtils():
             list_data.append(dict_data)
         return list_data
 
+    def get_row_number(self,case_id,case_name):
+        for row in range(len(self.test_data)):
+            if self.test_data[row]['测试用例编号'] == case_id and self.test_data[row]['测试用例步骤'] == case_name:
+                break
+        return row+1
+
 
 
 
@@ -39,8 +45,9 @@ if __name__=="__main__":
         dictlist['case_name']=key
         dictlist['case_info']=value
         caselist.append(dictlist)
-    value2=TestdataUtils('Sheet1',path_data_file).get_testcase_data_list()
+    # value2=TestdataUtils('Sheet1',path_data_file).get_testcase_data_list()
+    #
+    # print(json.dumps(value2, indent=1, ensure_ascii=False))
 
-    print(json.dumps(value2, indent=1, ensure_ascii=False))
-
-
+    row_number=TestdataUtils('Sheet1',path_data_file).get_row_number('case04','step_02')
+    print(row_number)
